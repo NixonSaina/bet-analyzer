@@ -19,7 +19,6 @@ const App = () => {
 
   const generateCombinations = (games) => {
     const results = [];
-    const outcomes = ['Over', 'Under'];
 
     const generate = (currentCombo, depth) => {
       if (depth === games.length) {
@@ -32,12 +31,17 @@ const App = () => {
         return;
       }
 
+      const game = games[depth];
+      const outcomes = game.betType === 'over/under' ? ['Over', 'Under'] : ['GG', 'NG'];
+
       for (let i = 0; i < outcomes.length; i++) {
         const outcome = outcomes[i];
+        // Map outcome to its respective key in the odds object
+        const oddsKey = game.betType === 'over/under' ? outcome.toLowerCase() : outcome.toLowerCase();
         currentCombo.push({
-          game: games[depth].name,
+          game: game.name,
           outcome: outcome,
-          odds: games[depth].odds[outcome.toLowerCase()]
+          odds: game.odds[oddsKey]
         });
         generate(currentCombo, depth + 1);
         currentCombo.pop();
