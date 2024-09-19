@@ -1,7 +1,7 @@
 // src/components/OutcomeList.js
 import React from 'react';
 
-const OutcomeList = ({ games, outcomes }) => {
+const OutcomeList = ({ games, outcomes, onSaveRecord }) => {
   return (
     <div>
       {outcomes.length > 0 ? (
@@ -17,6 +17,7 @@ const OutcomeList = ({ games, outcomes }) => {
                 ))}
                 <br />
                 <strong>Total Odds: {outcomeSet.totalOdds}</strong>
+                <button onClick={() => onSaveRecord(outcomeSet)}>Save</button>
               </li>
             ))}
           </ul>
